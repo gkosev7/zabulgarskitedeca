@@ -2,6 +2,9 @@ backend:
   name: github
   repo: gkosev7/zabulgarskitedeca
   branch: master
+  site_domain: zabulgarskitedeca.org
+  base_url: https://decap-auth.zabulgarskitedeca.org
+  auth_endpoint: auth
 
 media_folder: "public/images"
 public_folder: "/images"

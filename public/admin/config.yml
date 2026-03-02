@@ -1,18 +1,21 @@
 backend:
   name: github
-  repo: yourusername/yoursite
-  branch: main
+  repo: gkosev7/zabulgarskitedeca
+  branch: master
 
 media_folder: "public/images"
 public_folder: "/images"
 
 collections:
   - name: "blog"
-    label: "Ð‘Ð»Ð¾Ð³"
+    label: "Блог"
     folder: "src/content/blog"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Ð—Ð°Ð³Ð»Ð°Ð²Ð¸Ðµ", name: "title", widget: "string" }
-      - { label: "Ð”Ð°Ñ‚Ð°", name: "date", widget: "datetime" }
-      - { label: "Ð¡ÑŠÐ´ÑŠÑ€Ð¶Ð°Ð½Ð¸Ðµ", name: "body", widget: "markdown" }
+      - { label: "Заглавие", name: "title", widget: "string" }
+      - { label: "Описание", name: "description", widget: "text" }
+      - { label: "Дата на публикуване", name: "pubDate", widget: "datetime" }
+      - { label: "Последна редакция", name: "updatedDate", widget: "datetime", required: false }
+      - { label: "Изображение", name: "heroImage", widget: "image", required: false }
+      - { label: "Съдържание", name: "body", widget: "markdown" }

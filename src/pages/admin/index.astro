@@ -1,0 +1,23 @@
+---
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="cms-config-url" type="text/yaml" href="/admin/config.yml" />
+    <title>Admin</title>
+  </head>
+  <body>
+    <script is:inline>
+      if (window.location.pathname === "/admin") {
+        window.location.replace("/admin/");
+      }
+    </script>
+    <script
+      defer
+      src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+    ></script>
+  </body>
+</html>

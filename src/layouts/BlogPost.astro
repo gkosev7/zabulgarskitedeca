@@ -44,6 +44,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
+				background: linear-gradient(90deg, #f8f9fa 0%, #00966e 50%, #d62612 100%);
+				-webkit-background-clip: text;
+				background-clip: text;
+				-webkit-text-fill-color: transparent;
+				text-shadow: 0 1px 1px rgba(var(--black), 0.28);
 			}
 			.date {
 				margin-bottom: 0.5em;
@@ -51,6 +56,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.last-updated-on {
 				font-style: italic;
+			}
+			@media (max-width: 720px) {
+				.title {
+					padding: 0.65em 0;
+				}
+				.title h1 {
+					font-size: 2rem;
+					line-height: 1.15;
+				}
+				.date,
+				.last-updated-on {
+					font-size: 0.95rem;
+				}
 			}
 		</style>
 	</head>

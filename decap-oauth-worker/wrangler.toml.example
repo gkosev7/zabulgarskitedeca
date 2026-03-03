@@ -1,0 +1,8 @@
+name = "decap-auth"
+main = "src/index.js"
+compatibility_date = "2026-03-02"
+
+[vars]
+# Set these as secrets in production:
+# wrangler secret put GITHUB_OAUTH_CLIENT_ID
+# wrangler secret put GITHUB_OAUTH_CLIENT_SECRET

@@ -1,11 +1,25 @@
 ---
-import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
 
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<h2 class="brand-title">
+			<a href="/" aria-label="За Българските Деца">
+				<img
+					class="brand-logo"
+					src="/logo.png"
+					alt=""
+					aria-hidden="true"
+					decoding="async"
+					loading="lazy"
+					onerror="this.style.display='none'"
+				/>
+				<span class="brand-white">За</span>
+				<span class="brand-green">Българските</span>
+				<span class="brand-red">Деца</span>
+			</a>
+		</h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Начало</HeaderLink>
 			<HeaderLink href="/blog">Блог</HeaderLink>
@@ -14,34 +28,125 @@ import HeaderLink from './HeaderLink.astro';
 	</nav>
 </header>
 <style>
+	@import url("https://fonts.googleapis.com/css2?family=Marck+Script&display=swap");
+
 	header {
 		margin: 0;
 		padding: 0 1em;
-		background: white;
+		background: #4f555e;
 		box-shadow: 0 2px 8px rgba(var(--black), 5%);
 	}
 	h2 {
 		margin: 0;
 		font-size: 1em;
 	}
+	.brand-title {
+		font-size: 1.85rem;
+		line-height: 1.1;
+	}
 
 	h2 a,
 	h2 a.active {
 		text-decoration: none;
 	}
+	.brand-title a,
+	.brand-title a.active {
+		font-family: "Marck Script", cursive;
+		font-weight: 400;
+		letter-spacing: 0.03em;
+		display: inline-flex;
+		gap: 0.28em;
+		align-items: center;
+	}
+	.brand-title a span {
+		line-height: 1;
+	}
+	.brand-logo {
+		width: 3rem;
+		height: 3rem;
+		object-fit: contain;
+		flex-shrink: 0;
+		transform: scale(1.22);
+		transform-origin: center;
+	}
+	.brand-white {
+		color: #ffffff;
+		text-shadow: 0 1px 1px rgba(var(--black), 0.85), 0 2px 4px rgba(var(--black), 0.55);
+	}
+	.brand-green {
+		color: #00966e;
+		text-shadow: 0 1px 1px rgba(var(--black), 0.6), 0 2px 4px rgba(var(--black), 0.4);
+	}
+	.brand-red {
+		color: #d62612;
+		text-shadow: 0 1px 1px rgba(var(--black), 0.6), 0 2px 4px rgba(var(--black), 0.4);
+	}
 	nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		gap: 1rem;
 	}
-	nav a {
+	.internal-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+	}
+	.internal-links a {
+		font-family: "Marck Script", cursive;
+		font-size: 1.35rem;
 		padding: 1em 0.5em;
-		color: var(--black);
+		color: #f8f9fa;
 		border-bottom: 4px solid transparent;
 		text-decoration: none;
 	}
-	nav a.active {
+	.internal-links a.active {
 		text-decoration: none;
-		border-bottom-color: var(--accent);
+		border-bottom: 4px solid;
+		border-image: linear-gradient(90deg, #ffffff 0 33.333%, #00966e 33.333% 66.666%, #d62612 66.666% 100%) 1;
+	}
+	@media (max-width: 900px) {
+		.brand-title {
+			font-size: 1.5rem;
+		}
+		.brand-logo {
+			width: 2.35rem;
+			height: 2.35rem;
+		}
+		.internal-links a {
+			font-size: 1.15rem;
+			padding: 0.85em 0.45em;
+		}
+	}
+	@media (max-width: 700px) {
+		header {
+			padding: 0.35em 0.7em;
+		}
+		nav {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0.15rem;
+		}
+		.brand-title {
+			font-size: 1.35rem;
+			text-align: center;
+		}
+		.brand-logo {
+			width: 2rem;
+			height: 2rem;
+		}
+		.brand-title a,
+		.brand-title a.active {
+			justify-content: center;
+		}
+		.internal-links {
+			justify-content: center;
+			row-gap: 0.1rem;
+		}
+		.internal-links a {
+			font-size: 1.1rem;
+			padding: 0.55em 0.42em;
+			border-bottom-width: 3px;
+		}
 	}
 </style>

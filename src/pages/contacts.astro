@@ -1,0 +1,94 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="bg">
+	<head>
+		<BaseHead title="Контакти" description="Контактна информация на Фондация За Българските Деца" />
+		<style>
+			.contact-card {
+				margin-top: 0.8rem;
+				padding: 1.35rem;
+				border-radius: 16px;
+				background:
+					linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.28) 65%),
+					linear-gradient(160deg, #fbfeff, #e9f6ff 55%, #ecfaf3);
+				border: 1px solid rgba(130, 192, 223, 0.35);
+				box-shadow: 0 8px 20px rgba(78, 126, 170, 0.14);
+			}
+			.contact-title {
+				margin: 0 0 0.5rem 0;
+			}
+			.contact-subtitle {
+				margin: 0 0 1rem 0;
+			}
+			.contact-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: grid;
+				gap: 0.6rem;
+			}
+			.contact-row {
+				padding: 0.55rem 0.75rem;
+				border-radius: 10px;
+				background: rgba(255, 255, 255, 0.72);
+				border: 1px solid rgba(var(--gray), 0.24);
+			}
+			.contact-label {
+				display: block;
+				font-size: 0.86rem;
+				color: rgb(var(--gray-dark));
+				margin-bottom: 0.18rem;
+			}
+			.contact-value {
+				font-weight: 700;
+				word-break: break-word;
+			}
+			.contact-value a {
+				color: inherit;
+				text-decoration: none;
+			}
+			.contact-value a:hover {
+				text-decoration: underline;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="contact-card">
+				<h1 class="contact-title">
+					<span data-i18n-bg="Контакти" data-i18n-en="Contacts">Контакти</span>
+				</h1>
+				<p class="contact-subtitle">
+					<span data-i18n-bg="Свържете се с Фондация „За Българските Деца“:" data-i18n-en="Get in touch with Foundation “For Bulgarian Children”:">
+						Свържете се с Фондация „За Българските Деца“:
+					</span>
+				</p>
+				<ul class="contact-list">
+					<li class="contact-row">
+						<span class="contact-label" data-i18n-bg="Име" data-i18n-en="Name">Име</span>
+						<span class="contact-value">Асинка Стефанова Стефанова</span>
+					</li>
+					<li class="contact-row">
+						<span class="contact-label" data-i18n-bg="Имейл" data-i18n-en="Email">Имейл</span>
+						<span class="contact-value"><a href="mailto:forbgchildren@gmail.com">forbgchildren@gmail.com</a></span>
+					</li>
+					<li class="contact-row">
+						<span class="contact-label" data-i18n-bg="Адрес" data-i18n-en="Address">Адрес</span>
+						<span class="contact-value">Владайска 75 София</span>
+					</li>
+					<li class="contact-row">
+						<span class="contact-label" data-i18n-bg="Телефон" data-i18n-en="Phone">Телефон</span>
+						<span class="contact-value"><a href="tel:+359887723420">+359887723420</a></span>
+					</li>
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -1,0 +1,72 @@
+<button type="button" class="lang-toggle" data-lang-toggle aria-label="Switch language">
+	EN
+</button>
+
+<script>
+	const storageKey = 'site-lang';
+	const defaultLang = 'bg';
+
+	function applyLanguage(lang) {
+		const html = document.documentElement;
+		html.lang = lang;
+		html.classList.remove('lang-bg', 'lang-en');
+		html.classList.add(`lang-${lang}`);
+
+		const button = document.querySelector('[data-lang-toggle]');
+		if (button) {
+			button.textContent = lang === 'bg' ? 'EN' : 'BG';
+		}
+
+		document.querySelectorAll('[data-i18n-bg][data-i18n-en]').forEach((el) => {
+			const text = el.getAttribute(`data-i18n-${lang}`);
+			if (text !== null) {
+				el.textContent = text;
+			}
+		});
+
+		document.querySelectorAll('[data-i18n-template-bg][data-i18n-template-en]').forEach((el) => {
+			const template = el.getAttribute(`data-i18n-template-${lang}`);
+			const count = el.getAttribute('data-i18n-count') ?? '';
+			if (template) {
+				el.textContent = template.replace('{n}', count);
+			}
+		});
+	}
+
+	const initialLang = localStorage.getItem(storageKey) || defaultLang;
+	applyLanguage(initialLang);
+
+	document.addEventListener('click', (event) => {
+		const target = event.target;
+		if (!(target instanceof Element) || !target.matches('[data-lang-toggle]')) {
+			return;
+		}
+		const currentLang = document.documentElement.classList.contains('lang-en') ? 'en' : 'bg';
+		const nextLang = currentLang === 'bg' ? 'en' : 'bg';
+		localStorage.setItem(storageKey, nextLang);
+		applyLanguage(nextLang);
+	});
+</script>
+
+<style>
+	.lang-toggle {
+		font-family: "Marck Script", cursive;
+		font-size: 1.2rem;
+		padding: 0.72em 0.55em;
+		color: #f8f9fa;
+		background: rgba(255, 255, 255, 0.08);
+		border: 1px solid rgba(255, 255, 255, 0.25);
+		border-radius: 999px;
+		line-height: 1;
+		cursor: pointer;
+	}
+	.lang-toggle:hover {
+		background: rgba(255, 255, 255, 0.16);
+	}
+	@media (max-width: 700px) {
+		.lang-toggle {
+			padding: 0.5em 0.65em;
+			font-size: 1.05rem;
+		}
+	}
+</style>

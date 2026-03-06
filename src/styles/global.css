@@ -1,8 +1,9 @@
 /*
   The CSS in this style tag is based off of Bear Blog's default CSS.
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
+ License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;500;700&display=swap");
 
 :root {
 	--accent: #2337ff;
@@ -35,7 +36,8 @@
 	font-display: swap;
 }
 body {
-	font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, "Times New Roman", serif;
+	font-family: "Merriweather", Georgia, "Times New Roman", serif;
+	font-weight: 500;
 	margin: 0;
 	padding: 0;
 	text-align: left;
@@ -77,6 +79,7 @@ h6 {
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));
 	line-height: 1.2;
+	font-weight: 700;
 }
 h1 {
 	font-size: 3.052em;

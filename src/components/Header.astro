@@ -1,5 +1,6 @@
 ---
 import HeaderLink from './HeaderLink.astro';
+import LanguageToggle from './LanguageToggle.astro';
 ---
 
 <header>
@@ -21,10 +22,12 @@ import HeaderLink from './HeaderLink.astro';
 			</a>
 		</h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Начало</HeaderLink>
-			<HeaderLink href="/blog">Блог</HeaderLink>
-			<HeaderLink href="/about">За нас</HeaderLink>
-			<HeaderLink href="/donations">Дарения</HeaderLink>
+			<HeaderLink href="/"><span data-i18n-bg="Начало" data-i18n-en="Home">Начало</span></HeaderLink>
+			<HeaderLink href="/blog"><span data-i18n-bg="Блог" data-i18n-en="Blog">Блог</span></HeaderLink>
+			<HeaderLink href="/about"><span data-i18n-bg="За нас" data-i18n-en="About us">За нас</span></HeaderLink>
+			<HeaderLink href="/donations"><span data-i18n-bg="Дарения" data-i18n-en="Donations">Дарения</span></HeaderLink>
+			<HeaderLink href="/contacts"><span data-i18n-bg="Контакти" data-i18n-en="Contacts">Контакти</span></HeaderLink>
+			<LanguageToggle />
 		</div>
 	</nav>
 </header>
@@ -94,6 +97,7 @@ import HeaderLink from './HeaderLink.astro';
 	.internal-links {
 		display: flex;
 		flex-wrap: wrap;
+		align-items: center;
 		justify-content: flex-end;
 	}
 	.internal-links a {

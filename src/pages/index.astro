@@ -46,6 +46,12 @@ const dayWeekFormatter = new Intl.DateTimeFormat('bg-BG', {
 const monthFormatter = new Intl.DateTimeFormat('bg-BG', {
 	month: 'short',
 });
+const dayWeekFormatterEn = new Intl.DateTimeFormat('en-US', {
+	weekday: 'short',
+});
+const monthFormatterEn = new Intl.DateTimeFormat('en-US', {
+	month: 'short',
+});
 
 const next31Days = Array.from({ length: 31 }, (_, index) => {
 	const day = new Date(today);
@@ -54,8 +60,10 @@ const next31Days = Array.from({ length: 31 }, (_, index) => {
 		key: toDayKey(day),
 		fullLabel: dayFullLabelFormatter.format(day),
 		dayNumber: day.getDate(),
-		weekLabel: dayWeekFormatter.format(day).replace('.', ''),
-		monthLabel: monthFormatter.format(day).replace('.', ''),
+		weekLabelBg: dayWeekFormatter.format(day).replace('.', ''),
+		weekLabelEn: dayWeekFormatterEn.format(day).replace('.', ''),
+		monthLabelBg: monthFormatter.format(day).replace('.', ''),
+		monthLabelEn: monthFormatterEn.format(day).replace('.', ''),
 		isToday: index === 0,
 		items: calendarByDay.get(toDayKey(day)) ?? [],
 	};
@@ -67,15 +75,31 @@ const next31Days = Array.from({ length: 31 }, (_, index) => {
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			main {
+				width: min(1100px, calc(100% - 2em));
+			}
 			.mission-wrap {
 				margin-top: 0.75rem;
-				padding: 1.1rem 1.2rem;
+				padding: 1.55rem 1.75rem;
 				border-radius: 14px;
 				background:
 					linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.2) 65%),
 					linear-gradient(160deg, #fbfeff, #e9f6ff 58%, #ebfaf3);
 				border: 1px solid rgba(var(--gray), 0.26);
 				box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 8px 18px rgba(88, 130, 166, 0.12);
+			}
+			.mission-layout {
+				display: grid;
+				grid-template-columns: minmax(0, 1.25fr) minmax(250px, 0.75fr);
+				gap: 1.35rem;
+				align-items: center;
+			}
+			.mission-logo {
+				width: clamp(220px, 24vw, 320px);
+				height: auto;
+				object-fit: contain;
+				justify-self: end;
+				filter: drop-shadow(0 3px 8px rgba(44, 82, 120, 0.2));
 			}
 			.mission-title {
 				margin: 0 0 0.5rem 0;
@@ -197,16 +221,33 @@ const next31Days = Array.from({ length: 31 }, (_, index) => {
 				}
 			}
 			@media (max-width: 700px) {
+				.mission-wrap {
+					padding: 1.15rem 1rem;
+				}
+				.mission-layout {
+					grid-template-columns: 1fr;
+				}
+				.mission-logo {
+					width: min(65vw, 250px);
+					justify-self: center;
+				}
 				.calendar-grid {
-					grid-template-columns: repeat(2, minmax(0, 1fr));
+					display: flex;
+					gap: 0.55rem;
+					overflow-x: auto;
+					padding-bottom: 0.35rem;
+					scroll-snap-type: x mandatory;
 				}
 				.day-card {
 					min-height: 6.4rem;
+					min-width: 10.3rem;
+					flex: 0 0 10.3rem;
+					scroll-snap-align: start;
 				}
 			}
 			@media (max-width: 480px) {
 				.calendar-grid {
-					grid-template-columns: 1fr;
+					display: flex;
 				}
 			}
 		</style>
@@ -215,29 +256,51 @@ const next31Days = Array.from({ length: 31 }, (_, index) => {
 		<Header />
 		<main>
 			<section class="mission-wrap">
-				<h1 class="mission-title">Нашата Мисия</h1>
-				<p class="mission-lead">
-					Изграждаме общност от информирани, активни и интелигентни младежи от цяла България, с фокус
-					върху младите хора в малките населени места.
-				</p>
-				<ul class="mission-points">
-					<li>Кариерна и професионална ориентация чрез съвременни образователни методики.</li>
-					<li>Развитие на заложби в науки, изкуства и професии.</li>
-					<li>
-						Практическо запознаване с теми като гражданско образование, икономика, политика, финансова
-						грамотност, екология и медии.
-					</li>
-					<li>Подкрепа на местната култура, изкуства и традиции.</li>
-					<li>Личностно израстване, творческа изява и активна обществена комуникация.</li>
-				</ul>
-				<p class="mission-cta">
-					Пълният текст на целите можете да прочетете на страницата <a href="/about">„За нас“</a>.
-				</p>
+				<div class="mission-layout">
+					<div>
+						<h1 class="mission-title"><span data-i18n-bg="Нашата Мисия" data-i18n-en="Our Mission">Нашата Мисия</span></h1>
+						<p class="mission-lead">
+							<span
+								data-i18n-bg="Изграждаме общност от информирани, активни и интелигентни младежи от цяла България, с фокус върху младите хора в малките населени места."
+								data-i18n-en="We build a community of informed, active, and intelligent youth across Bulgaria, with a focus on young people in smaller towns and villages."
+							>
+								Изграждаме общност от информирани, активни и интелигентни младежи от цяла България, с фокус
+								върху младите хора в малките населени места.
+							</span>
+						</p>
+						<ul class="mission-points">
+							<li><span data-i18n-bg="Кариерна и професионална ориентация чрез съвременни образователни методики." data-i18n-en="Career and professional orientation through modern educational methods.">Кариерна и професионална ориентация чрез съвременни образователни методики.</span></li>
+							<li><span data-i18n-bg="Развитие на заложби в науки, изкуства и професии." data-i18n-en="Development of talent in sciences, arts, and professions.">Развитие на заложби в науки, изкуства и професии.</span></li>
+							<li>
+								<span
+									data-i18n-bg="Практическо запознаване с теми като гражданско образование, икономика, политика, финансова грамотност, екология и медии."
+									data-i18n-en="Practical introduction to civic education, economics, politics, financial literacy, ecology, and media."
+								>
+									Практическо запознаване с теми като гражданско образование, икономика, политика, финансова
+									грамотност, екология и медии.
+								</span>
+							</li>
+							<li><span data-i18n-bg="Подкрепа на местната култура, изкуства и традиции." data-i18n-en="Support for local culture, arts, and traditions.">Подкрепа на местната култура, изкуства и традиции.</span></li>
+							<li><span data-i18n-bg="Личностно израстване, творческа изява и активна обществена комуникация." data-i18n-en="Personal growth, creative expression, and active social communication.">Личностно израстване, творческа изява и активна обществена комуникация.</span></li>
+						</ul>
+						<p class="mission-cta">
+							<span data-i18n-bg="Пълният текст на целите можете да прочетете на страницата " data-i18n-en="You can read the full mission details on the page ">Пълният текст на целите можете да прочетете на страницата </span><a href="/about"><span data-i18n-bg="„За нас“" data-i18n-en="“About us”">„За нас“</span></a>.
+						</p>
+					</div>
+					<img
+						class="mission-logo"
+						src="/logo.png"
+						alt="Лого на Фондацията"
+						decoding="async"
+						loading="lazy"
+						onerror="this.style.display='none'"
+					/>
+				</div>
 			</section>
 			<section class="calendar-wrap">
-				<h2 class="calendar-title">Календар: Следващи 31 Дни</h2>
+				<h2 class="calendar-title"><span data-i18n-bg="Календар: Следващи 31 Дни" data-i18n-en="Calendar: Next 31 Days">Календар: Следващи 31 Дни</span></h2>
 				<p class="calendar-subtitle">
-					Показва всички събития от днес нататък за 31 дни напред.
+					<span data-i18n-bg="Показва всички събития от днес нататък за 31 дни напред." data-i18n-en="Shows all events from today through the next 31 days.">Показва всички събития от днес нататък за 31 дни напред.</span>
 				</p>
 				<ul class="calendar-grid">
 					{
@@ -245,11 +308,15 @@ const next31Days = Array.from({ length: 31 }, (_, index) => {
 							<li class={`day-card ${day.isToday ? 'today' : ''}`}>
 								<h3 class="day-heading" title={day.fullLabel}>
 									<span class="day-num">{day.dayNumber}</span>
-									<span>{day.weekLabel}</span>
-									<span>{day.monthLabel}</span>
+									<span data-i18n-bg={day.weekLabelBg} data-i18n-en={day.weekLabelEn}>
+										{day.weekLabelBg}
+									</span>
+									<span data-i18n-bg={day.monthLabelBg} data-i18n-en={day.monthLabelEn}>
+										{day.monthLabelBg}
+									</span>
 								</h3>
 								{day.items.length === 0 ? (
-									<p class="no-events">Няма събития</p>
+									<p class="no-events" data-i18n-bg="Няма събития" data-i18n-en="No events">Няма събития</p>
 								) : (
 									<ul class="event-list">
 										{day.items.slice(0, 2).map((item) => (
@@ -265,7 +332,14 @@ const next31Days = Array.from({ length: 31 }, (_, index) => {
 											</li>
 										))}
 										{day.items.length > 2 && (
-											<li class="more-events">+{day.items.length - 2} още</li>
+											<li
+												class="more-events"
+												data-i18n-template-bg="+{n} още"
+												data-i18n-template-en="+{n} more"
+												data-i18n-count={String(day.items.length - 2)}
+											>
+												+{day.items.length - 2} още
+											</li>
 										)}
 									</ul>
 								)}

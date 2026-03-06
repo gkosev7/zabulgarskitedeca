@@ -1,38 +1,102 @@
 ---
-// import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
 ---
 
-<Layout
-	title="За нас"
-	description="Мисия и основни направления на Фондацията"
-	pubDate={new Date('2026-03-02')}
->
-	<h2>Мисия на Фондацията</h2>
-	<p>
-		Основната цел на Фондацията е да допринася за изграждането на общност от информирани, активни и
-		интелигентни младежи от цяла България, с фокус върху тези в малките населени места.
-	</p>
-	<ul>
-		<li>
-			Прилагане на образователни методики, които спомагат професионалната и кариерната ориентация на
-			младежта.
-		</li>
-		<li>
-			Откриване на интересите и подпомагане подготовката на младежи със заложби в изучаването на различни
-			науки, изкуства и професии.
-		</li>
-		<li>
-			Запознаване на младежта с надучилищни теми като гражданско образование, икономика, политика, финансова
-			грамотност, екология и медии.
-		</li>
-		<li>Стимулиране и популяризиране на местната култура, изкуства и традиции.</li>
-		<li>
-			Провеждане, стимулиране и подкрепяне на различни системи и практики за личностно израстване и
-			пълноценно реализиране и изява на творческия потенциал и способности на отделната личност,
-			насърчавайки и развивайки обществената и междуличностната комуникация, създавайки условията за
-			провеждане на общуване, диалог и културноличностен обмен, осъществявайки принос в социално значими
-			каузи, за изграждане на екологична и хармонична околна среда.
-		</li>
-	</ul>
-</Layout>
+<!doctype html>
+<html lang="bg">
+	<head>
+		<BaseHead title="За нас" description="Мисия и основни направления на Фондацията" />
+		<style>
+			.about-card {
+				margin-top: 0.8rem;
+				padding: 1.35rem;
+				border-radius: 16px;
+				background:
+					linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.28) 65%),
+					linear-gradient(160deg, #fbfeff, #e9f6ff 55%, #ecfaf3);
+				border: 1px solid rgba(130, 192, 223, 0.35);
+				box-shadow: 0 8px 20px rgba(78, 126, 170, 0.14);
+			}
+			.about-title {
+				margin: 0 0 0.7rem 0;
+			}
+			.about-list {
+				padding-left: 1.25rem;
+				margin: 0.8rem 0 0 0;
+				display: grid;
+				gap: 0.45rem;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="about-card">
+				<h1 class="about-title">
+					<span data-i18n-bg="Мисия на Фондацията" data-i18n-en="Mission of the Foundation">Мисия на Фондацията</span>
+				</h1>
+				<p>
+					<span
+						data-i18n-bg="Основната цел на Фондацията е да допринася за изграждането на общност от информирани, активни и интелигентни младежи от цяла България, с фокус върху тези в малките населени места."
+						data-i18n-en="The Foundation’s main goal is to help build a community of informed, active, and intelligent young people from all over Bulgaria, with a focus on those in smaller towns and villages."
+					>
+						Основната цел на Фондацията е да допринася за изграждането на общност от информирани, активни и
+						интелигентни младежи от цяла България, с фокус върху тези в малките населени места.
+					</span>
+				</p>
+				<ul class="about-list">
+					<li>
+						<span
+							data-i18n-bg="Прилагане на образователни методики, които спомагат професионалната и кариерната ориентация на младежта."
+							data-i18n-en="Applying educational methods that support youth professional and career orientation."
+						>
+							Прилагане на образователни методики, които спомагат професионалната и кариерната ориентация на
+							младежта.
+						</span>
+					</li>
+					<li>
+						<span
+							data-i18n-bg="Откриване на интересите и подпомагане подготовката на младежи със заложби в изучаването на различни науки, изкуства и професии."
+							data-i18n-en="Discovering interests and supporting gifted youth in preparing for studies in sciences, arts, and professions."
+						>
+							Откриване на интересите и подпомагане подготовката на младежи със заложби в изучаването на различни
+							науки, изкуства и професии.
+						</span>
+					</li>
+					<li>
+						<span
+							data-i18n-bg="Запознаване на младежта с надучилищни теми като гражданско образование, икономика, политика, финансова грамотност, екология и медии."
+							data-i18n-en="Introducing youth to beyond-school topics such as civic education, economics, politics, financial literacy, ecology, and media."
+						>
+							Запознаване на младежта с надучилищни теми като гражданско образование, икономика, политика,
+							финансова грамотност, екология и медии.
+						</span>
+					</li>
+					<li>
+						<span
+							data-i18n-bg="Стимулиране и популяризиране на местната култура, изкуства и традиции."
+							data-i18n-en="Encouraging and promoting local culture, arts, and traditions."
+						>
+							Стимулиране и популяризиране на местната култура, изкуства и традиции.
+						</span>
+					</li>
+					<li>
+						<span
+							data-i18n-bg="Провеждане, стимулиране и подкрепяне на различни системи и практики за личностно израстване и пълноценно реализиране и изява на творческия потенциал и способности на отделната личност, насърчавайки и развивайки обществената и междуличностната комуникация, създавайки условията за провеждане на общуване, диалог и културноличностен обмен, осъществявайки принос в социално значими каузи, за изграждане на екологична и хармонична околна среда."
+							data-i18n-en="Developing, stimulating, and supporting systems and practices for personal growth and full expression of each person’s creative potential and abilities, while fostering social and interpersonal communication, creating conditions for dialogue and cultural exchange, and contributing to socially significant causes for an ecological and harmonious environment."
+						>
+							Провеждане, стимулиране и подкрепяне на различни системи и практики за личностно израстване и
+							пълноценно реализиране и изява на творческия потенциал и способности на отделната личност,
+							насърчавайки и развивайки обществената и междуличностната комуникация, създавайки условията за
+							провеждане на общуване, диалог и културноличностен обмен, осъществявайки принос в социално значими
+							каузи, за изграждане на екологична и хармонична околна среда.
+						</span>
+					</li>
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

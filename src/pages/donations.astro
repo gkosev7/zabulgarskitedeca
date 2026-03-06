@@ -1,0 +1,91 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+const pageTitle = 'Дарения';
+const pageDescription = 'Информация за банково дарение към Фондация За Българските Деца';
+---
+
+<!doctype html>
+<html lang="bg">
+	<head>
+		<BaseHead title={pageTitle} description={pageDescription} />
+		<style>
+			.donation-card {
+				margin-top: 0.8rem;
+				padding: 1.35rem;
+				border-radius: 16px;
+				background:
+					linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.28) 65%),
+					linear-gradient(160deg, #fbfeff, #e9f6ff 55%, #ecfaf3);
+				border: 1px solid rgba(130, 192, 223, 0.35);
+				box-shadow: 0 8px 20px rgba(78, 126, 170, 0.14);
+			}
+			.donation-title {
+				margin: 0 0 0.5rem 0;
+			}
+			.donation-lead {
+				margin: 0 0 1rem 0;
+			}
+			.bank-box {
+				padding: 0.9rem 1rem;
+				border-radius: 12px;
+				background: rgba(255, 255, 255, 0.75);
+				border: 1px solid rgba(var(--gray), 0.24);
+				font-size: 1.08rem;
+				line-height: 1.55;
+			}
+			.bank-label {
+				display: block;
+				font-size: 0.88rem;
+				opacity: 0.8;
+				margin-bottom: 0.25rem;
+			}
+			.bank-iban {
+				display: block;
+				font-weight: 700;
+				letter-spacing: 0.03em;
+				word-break: break-all;
+			}
+			.bank-name {
+				display: block;
+				font-weight: 700;
+				margin-top: 0.3rem;
+			}
+			.donation-notes {
+				margin: 1rem 0 0 0;
+				padding-left: 1.2rem;
+			}
+			.donation-notes li {
+				margin-bottom: 0.35rem;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="donation-card">
+				<h1 class="donation-title">Дарения</h1>
+				<p class="donation-lead">
+					Ако желаете да подкрепите дейността на Фондация „За Българските Деца“, можете да направите
+					банков превод към следната дарителска сметка:
+				</p>
+
+				<div class="bank-box">
+					<span class="bank-label">IBAN</span>
+					<span class="bank-iban">BG31UBBS80025473693210</span>
+					<span class="bank-label">Титуляр</span>
+					<span class="bank-name">ФОНДАЦИЯ ЗА БЪЛГАРСКИТЕ ДЕЦА</span>
+				</div>
+
+				<ul class="donation-notes">
+					<li>В основание за плащане може да посочите: „Дарение“.</li>
+					<li>Всяка подкрепа помага за реализиране на образователни и социално значими инициативи.</li>
+					<li>Благодарим Ви, че сте част от каузата за българските деца.</li>
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

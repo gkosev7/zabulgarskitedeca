@@ -22,3 +22,15 @@ collections:
       - { label: "Последна редакция", name: "updatedDate", widget: "datetime", required: false }
       - { label: "Изображение", name: "heroImage", widget: "image", required: false }
       - { label: "Съдържание", name: "body", widget: "markdown" }
+  - name: "calendar"
+    label: "Календар"
+    folder: "src/content/calendar"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Заглавие", name: "title", widget: "string" }
+      - { label: "Дата", name: "date", widget: "datetime", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Час", name: "time", widget: "string", required: false, hint: "Пример: 18:30" }
+      - { label: "Локация", name: "location", widget: "string", required: false }
+      - { label: "Описание", name: "description", widget: "text", required: false }
+      - { label: "Бележки", name: "body", widget: "markdown", required: false }

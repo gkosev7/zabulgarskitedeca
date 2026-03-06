@@ -1,51 +1,279 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+function toDayKey(date: Date) {
+	const year = date.getFullYear();
+	const month = String(date.getMonth() + 1).padStart(2, '0');
+	const day = String(date.getDate()).padStart(2, '0');
+	return `${year}-${month}-${day}`;
+}
+
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+const endDate = new Date(today);
+endDate.setDate(endDate.getDate() + 30);
+
+const allCalendarItems = await getCollection('calendar');
+const calendarItems = allCalendarItems
+	.filter((item) => {
+		const itemDate = new Date(item.data.date);
+		itemDate.setHours(0, 0, 0, 0);
+		return itemDate >= today && itemDate <= endDate;
+	})
+	.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+
+const calendarByDay = new Map<string, typeof calendarItems>();
+for (const item of calendarItems) {
+	const key = toDayKey(item.data.date);
+	const bucket = calendarByDay.get(key) ?? [];
+	bucket.push(item);
+	calendarByDay.set(key, bucket);
+}
+
+const dayFullLabelFormatter = new Intl.DateTimeFormat('bg-BG', {
+	weekday: 'long',
+	day: 'numeric',
+	month: 'long',
+});
+const dayWeekFormatter = new Intl.DateTimeFormat('bg-BG', {
+	weekday: 'short',
+});
+const monthFormatter = new Intl.DateTimeFormat('bg-BG', {
+	month: 'short',
+});
+
+const next31Days = Array.from({ length: 31 }, (_, index) => {
+	const day = new Date(today);
+	day.setDate(today.getDate() + index);
+	return {
+		key: toDayKey(day),
+		fullLabel: dayFullLabelFormatter.format(day),
+		dayNumber: day.getDate(),
+		weekLabel: dayWeekFormatter.format(day).replace('.', ''),
+		monthLabel: monthFormatter.format(day).replace('.', ''),
+		isToday: index === 0,
+		items: calendarByDay.get(toDayKey(day)) ?? [],
+	};
+});
 ---
 
 <!doctype html>
 <html lang="bg">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.mission-wrap {
+				margin-top: 0.75rem;
+				padding: 1.1rem 1.2rem;
+				border-radius: 14px;
+				background:
+					linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.2) 65%),
+					linear-gradient(160deg, #fbfeff, #e9f6ff 58%, #ebfaf3);
+				border: 1px solid rgba(var(--gray), 0.26);
+				box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75), 0 8px 18px rgba(88, 130, 166, 0.12);
+			}
+			.mission-title {
+				margin: 0 0 0.5rem 0;
+				font-size: 1.9rem;
+			}
+			.mission-lead {
+				margin: 0 0 0.7rem 0;
+			}
+			.mission-points {
+				margin: 0;
+				padding-left: 1.15rem;
+				display: grid;
+				gap: 0.35rem;
+			}
+			.mission-cta {
+				margin: 0.8rem 0 0 0;
+				font-weight: 700;
+			}
+			.calendar-wrap {
+				margin-top: 2rem;
+				padding: 1rem;
+				border-radius: 16px;
+				background:
+					linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.26) 65%),
+					linear-gradient(150deg, #f7fcff, #e6f5ff 50%, #e8f8f1);
+				box-shadow: 0 8px 20px rgba(78, 126, 170, 0.15);
+				border: 1px solid rgba(130, 192, 223, 0.35);
+			}
+			.calendar-title {
+				margin: 0 0 0.4rem 0;
+				font-size: 2rem;
+			}
+			.calendar-subtitle {
+				margin: 0 0 0.8rem 0;
+				color: rgb(var(--gray-dark));
+			}
+			.calendar-grid {
+				display: grid;
+				grid-template-columns: repeat(7, minmax(0, 1fr));
+				gap: 0.45rem;
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			.day-card {
+				border-radius: 10px;
+				padding: 0.5rem;
+				background:
+					linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(239, 248, 255, 0.86)),
+					#ffffff;
+				border: 1px solid rgba(var(--gray), 0.25);
+				min-height: 7.6rem;
+				display: grid;
+				grid-template-rows: auto 1fr;
+				gap: 0.35rem;
+				box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+			}
+			.day-card.today {
+				border-color: #00966e;
+				box-shadow: inset 0 0 0 1px rgba(0, 150, 110, 0.28);
+			}
+			.day-heading {
+				margin: 0;
+				display: flex;
+				align-items: center;
+				gap: 0.28rem;
+				font-size: 0.8rem;
+				line-height: 1;
+				color: rgb(var(--gray-dark));
+			}
+			.day-num {
+				font-size: 1.25rem;
+				font-weight: 700;
+				color: rgb(var(--black));
+			}
+			.event-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				display: grid;
+				gap: 0.25rem;
+				align-content: start;
+			}
+			.event-item {
+				padding: 0.28rem 0.35rem;
+				border-radius: 6px;
+				background: linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(216, 240, 251, 0.52));
+			}
+			.event-title {
+				margin: 0;
+				font-size: 0.8rem;
+				font-weight: 700;
+				line-height: 1.2;
+			}
+			.event-meta {
+				margin: 0.12rem 0 0 0;
+				font-size: 0.72rem;
+				color: rgb(var(--gray-dark));
+			}
+			.more-events {
+				margin: 0.12rem 0 0 0;
+				font-size: 0.72rem;
+				font-weight: 700;
+				color: #00966e;
+			}
+			.no-events {
+				margin: 0;
+				font-size: 0.76rem;
+				color: rgb(var(--gray));
+			}
+			@media (max-width: 1300px) {
+				.calendar-grid {
+					grid-template-columns: repeat(5, minmax(0, 1fr));
+				}
+			}
+			@media (max-width: 900px) {
+				.calendar-grid {
+					grid-template-columns: repeat(3, minmax(0, 1fr));
+				}
+			}
+			@media (max-width: 700px) {
+				.calendar-grid {
+					grid-template-columns: repeat(2, minmax(0, 1fr));
+				}
+				.day-card {
+					min-height: 6.4rem;
+				}
+			}
+			@media (max-width: 480px) {
+				.calendar-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<h1>Lorem Ipsum</h1>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-				et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-				aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-				culpa qui officia deserunt mollit anim id est laborum.
-			</p>
-			<p>
-				Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh
-				elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta.
-				Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent
-				per conubia nostra, per inceptos himenaeos.
-			</p>
-			<p>
-				Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh.
-				Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut
-				ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non,
-				massa. Fusce ac turpis quis ligula lacinia aliquet.
-			</p>
-			<p>
-				Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat
-				condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-				himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a
-				cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla.
-			</p>
-			<p>
-				Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam.
-				Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus
-				luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna
-				augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-				curae.
-			</p>
+			<section class="mission-wrap">
+				<h1 class="mission-title">Нашата Мисия</h1>
+				<p class="mission-lead">
+					Изграждаме общност от информирани, активни и интелигентни младежи от цяла България, с фокус
+					върху младите хора в малките населени места.
+				</p>
+				<ul class="mission-points">
+					<li>Кариерна и професионална ориентация чрез съвременни образователни методики.</li>
+					<li>Развитие на заложби в науки, изкуства и професии.</li>
+					<li>
+						Практическо запознаване с теми като гражданско образование, икономика, политика, финансова
+						грамотност, екология и медии.
+					</li>
+					<li>Подкрепа на местната култура, изкуства и традиции.</li>
+					<li>Личностно израстване, творческа изява и активна обществена комуникация.</li>
+				</ul>
+				<p class="mission-cta">
+					Пълният текст на целите можете да прочетете на страницата <a href="/about">„За нас“</a>.
+				</p>
+			</section>
+			<section class="calendar-wrap">
+				<h2 class="calendar-title">Календар: Следващи 31 Дни</h2>
+				<p class="calendar-subtitle">
+					Показва всички събития от днес нататък за 31 дни напред.
+				</p>
+				<ul class="calendar-grid">
+					{
+						next31Days.map((day) => (
+							<li class={`day-card ${day.isToday ? 'today' : ''}`}>
+								<h3 class="day-heading" title={day.fullLabel}>
+									<span class="day-num">{day.dayNumber}</span>
+									<span>{day.weekLabel}</span>
+									<span>{day.monthLabel}</span>
+								</h3>
+								{day.items.length === 0 ? (
+									<p class="no-events">Няма събития</p>
+								) : (
+									<ul class="event-list">
+										{day.items.slice(0, 2).map((item) => (
+											<li class="event-item">
+												<p class="event-title">{item.data.title}</p>
+												{(item.data.time || item.data.location) && (
+													<p class="event-meta">
+														{item.data.time && <span>{item.data.time}</span>}
+														{item.data.time && item.data.location && <span> · </span>}
+														{item.data.location && <span>{item.data.location}</span>}
+													</p>
+												)}
+											</li>
+										))}
+										{day.items.length > 2 && (
+											<li class="more-events">+{day.items.length - 2} още</li>
+										)}
+									</ul>
+								)}
+							</li>
+						))
+					}
+				</ul>
+			</section>
 		</main>
 		<Footer />
 	</body>

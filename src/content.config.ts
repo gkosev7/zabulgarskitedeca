@@ -25,4 +25,15 @@ const blog = defineCollection({
 			})),
 });
 
-export const collections = { blog };
+const calendar = defineCollection({
+	loader: glob({ base: './src/content/calendar', pattern: '**/*.{md,mdx}' }),
+	schema: z.object({
+		title: z.string(),
+		date: z.coerce.date(),
+		time: z.string().optional(),
+		location: z.string().optional(),
+		description: z.string().optional(),
+	}),
+});
+
+export const collections = { blog, calendar };

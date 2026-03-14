@@ -94,12 +94,231 @@ const next31Days = Array.from({ length: 31 }, (_, index) => {
 				gap: 1.35rem;
 				align-items: center;
 			}
-			.mission-logo {
-				width: clamp(220px, 24vw, 320px);
-				height: auto;
-				object-fit: contain;
+			.mission-visual {
+				position: relative;
+				width: min(100%, 360px);
+				aspect-ratio: 1 / 1.08;
 				justify-self: end;
-				filter: drop-shadow(0 3px 8px rgba(44, 82, 120, 0.2));
+				border-radius: 26px;
+				overflow: hidden;
+				background:
+					linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 28%),
+					linear-gradient(180deg, #bfe9ff 0%, #dff7ff 34%, #d6f1ec 58%, #79bfd7 78%, #4da3bf 100%);
+				border: 1px solid rgba(118, 183, 214, 0.44);
+				box-shadow:
+					inset 0 1px 0 rgba(255, 255, 255, 0.8),
+					0 12px 24px rgba(79, 132, 173, 0.16);
+			}
+			.mission-visual::before {
+				content: "";
+				position: absolute;
+				inset: auto -10% -6% -10%;
+				height: 28%;
+				border-radius: 50% 50% 0 0;
+				background: linear-gradient(180deg, rgba(114, 188, 212, 0.88), #2f8bb1);
+			}
+			.sun {
+				position: absolute;
+				top: 9%;
+				right: 10%;
+				width: 72px;
+				height: 72px;
+				border-radius: 50%;
+				background: radial-gradient(circle at 35% 35%, #fff9cc 0%, #ffe27a 52%, #f8b940 100%);
+				box-shadow: 0 0 32px rgba(255, 214, 107, 0.7);
+			}
+			.cloud {
+				position: absolute;
+				background: rgba(255, 255, 255, 0.8);
+				border-radius: 999px;
+				filter: blur(0.2px);
+			}
+			.cloud::before,
+			.cloud::after {
+				content: "";
+				position: absolute;
+				background: inherit;
+				border-radius: inherit;
+			}
+			.cloud-one {
+				top: 13%;
+				left: 10%;
+				width: 78px;
+				height: 24px;
+			}
+			.cloud-one::before {
+				width: 30px;
+				height: 30px;
+				left: 10px;
+				top: -14px;
+			}
+			.cloud-one::after {
+				width: 38px;
+				height: 38px;
+				right: 12px;
+				top: -18px;
+			}
+			.cloud-two {
+				top: 24%;
+				right: 26%;
+				width: 64px;
+				height: 20px;
+			}
+			.cloud-two::before {
+				width: 26px;
+				height: 26px;
+				left: 8px;
+				top: -12px;
+			}
+			.cloud-two::after {
+				width: 30px;
+				height: 30px;
+				right: 8px;
+				top: -14px;
+			}
+			.bird {
+				position: absolute;
+				width: 18px;
+				height: 10px;
+				border-top: 2px solid rgba(72, 105, 135, 0.78);
+				border-radius: 50% 50% 0 0;
+				transform: rotate(-8deg);
+			}
+			.bird::after {
+				content: "";
+				position: absolute;
+				left: 8px;
+				top: -2px;
+				width: 18px;
+				height: 10px;
+				border-top: 2px solid rgba(72, 105, 135, 0.78);
+				border-radius: 50% 50% 0 0;
+				transform: rotate(16deg);
+			}
+			.bird-one {
+				top: 20%;
+				left: 24%;
+			}
+			.bird-two {
+				top: 29%;
+				left: 58%;
+				transform: scale(0.82) rotate(4deg);
+			}
+			.book {
+				position: absolute;
+				left: 50%;
+				bottom: 26%;
+				width: 150px;
+				height: 84px;
+				transform: translateX(-50%);
+			}
+			.book-left,
+			.book-right {
+				position: absolute;
+				top: 0;
+				width: 72px;
+				height: 84px;
+				background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), #f8fbff 72%, #d7e6f0);
+				box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+			}
+			.book-left {
+				left: 0;
+				border-radius: 8px 0 18px 14px;
+				transform: skewY(8deg);
+			}
+			.book-right {
+				right: 0;
+				border-radius: 0 8px 14px 18px;
+				transform: skewY(-8deg);
+			}
+			.book-spine {
+				position: absolute;
+				left: 50%;
+				top: 8px;
+				width: 10px;
+				height: 76px;
+				transform: translateX(-50%);
+				border-radius: 999px;
+				background: linear-gradient(180deg, #c8d8e6, #9eb5c9);
+			}
+			.child {
+				position: absolute;
+				bottom: 19%;
+				width: 56px;
+				height: 106px;
+			}
+			.child::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 50%;
+				width: 22px;
+				height: 22px;
+				transform: translateX(-50%);
+				border-radius: 50%;
+				background: linear-gradient(180deg, #f6d7b0, #e7b98d);
+			}
+			.child::after {
+				content: "";
+				position: absolute;
+				left: 50%;
+				top: 22px;
+				width: 34px;
+				height: 50px;
+				transform: translateX(-50%);
+				border-radius: 18px 18px 14px 14px;
+				background: linear-gradient(180deg, #49b88f, #1e8f68);
+			}
+			.child-left {
+				left: 22%;
+			}
+			.child-right {
+				right: 22%;
+			}
+			.child-right::after {
+				background: linear-gradient(180deg, #ffd967, #f4a640);
+			}
+			.child-arm {
+				position: absolute;
+				top: 35px;
+				width: 38px;
+				height: 10px;
+				border-radius: 999px;
+				background: linear-gradient(180deg, #f3d1a8, #e6b88a);
+			}
+			.child-left .child-arm {
+				left: 24px;
+				transform: rotate(-24deg);
+				transform-origin: left center;
+			}
+			.child-right .child-arm {
+				right: 24px;
+				transform: rotate(24deg);
+				transform-origin: right center;
+			}
+			.child-leg {
+				position: absolute;
+				top: 68px;
+				width: 10px;
+				height: 34px;
+				border-radius: 999px;
+				background: linear-gradient(180deg, #3f6990, #294d6f);
+			}
+			.child-left .leg-one {
+				left: 20px;
+				transform: rotate(8deg);
+			}
+			.child-left .leg-two {
+				right: 20px;
+				transform: rotate(-10deg);
+			}
+			.child-right .leg-one {
+				left: 20px;
+				transform: rotate(10deg);
+			}
+			.child-right .leg-two {
+				right: 20px;
+				transform: rotate(-8deg);
 			}
 			.mission-title {
 				margin: 0 0 0.5rem 0;
@@ -227,27 +446,20 @@ const next31Days = Array.from({ length: 31 }, (_, index) => {
 				.mission-layout {
 					grid-template-columns: 1fr;
 				}
-				.mission-logo {
-					width: min(65vw, 250px);
+				.mission-visual {
+					width: min(100%, 360px);
 					justify-self: center;
 				}
 				.calendar-grid {
-					display: flex;
-					gap: 0.55rem;
-					overflow-x: auto;
-					padding-bottom: 0.35rem;
-					scroll-snap-type: x mandatory;
+					grid-template-columns: repeat(2, minmax(0, 1fr));
 				}
 				.day-card {
 					min-height: 6.4rem;
-					min-width: 10.3rem;
-					flex: 0 0 10.3rem;
-					scroll-snap-align: start;
 				}
 			}
 			@media (max-width: 480px) {
 				.calendar-grid {
-					display: flex;
+					grid-template-columns: 1fr;
 				}
 			}
 		</style>
@@ -287,14 +499,28 @@ const next31Days = Array.from({ length: 31 }, (_, index) => {
 							<span data-i18n-bg="Пълният текст на целите можете да прочетете на страницата " data-i18n-en="You can read the full mission details on the page ">Пълният текст на целите можете да прочетете на страницата </span><a href="/about"><span data-i18n-bg="„За нас“" data-i18n-en="“About us”">„За нас“</span></a>.
 						</p>
 					</div>
-					<img
-						class="mission-logo"
-						src="/logo.png"
-						alt="Лого на Фондацията"
-						decoding="async"
-						loading="lazy"
-						onerror="this.style.display='none'"
-					/>
+					<div class="mission-visual" aria-hidden="true">
+						<div class="sun"></div>
+						<div class="cloud cloud-one"></div>
+						<div class="cloud cloud-two"></div>
+						<div class="bird bird-one"></div>
+						<div class="bird bird-two"></div>
+						<div class="book">
+							<div class="book-left"></div>
+							<div class="book-right"></div>
+							<div class="book-spine"></div>
+						</div>
+						<div class="child child-left">
+							<div class="child-arm"></div>
+							<div class="child-leg leg-one"></div>
+							<div class="child-leg leg-two"></div>
+						</div>
+						<div class="child child-right">
+							<div class="child-arm"></div>
+							<div class="child-leg leg-one"></div>
+							<div class="child-leg leg-two"></div>
+						</div>
+					</div>
 				</div>
 			</section>
 			<section class="calendar-wrap">

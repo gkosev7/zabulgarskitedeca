@@ -1,0 +1,25 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import CalendarSection from '../components/CalendarSection.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="bg">
+	<head>
+		<BaseHead title="Календар" description="Следващи 31 дни събития на Фондация За Българските Деца" />
+		<style>
+			main {
+				width: min(1100px, calc(100% - 2em));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<CalendarSection />
+		</main>
+		<Footer />
+	</body>
+</html>
